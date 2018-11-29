@@ -1,0 +1,17 @@
+	public class CustomerRepository
+    {
+        private readonly IRepository<Customer> _repository;
+        private readonly IUnitOfWork _uoWork;
+
+        public CustomerRepositoy()
+        {
+            _uoWork = new UnitOfWork();
+            _repository = new Repository<Customer>(_uoWork);
+            
+        }
+
+        public List<Customer> GetAllCustomers()
+        {
+            return _repository.GetAll().ToList();
+        } 
+    }
