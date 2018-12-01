@@ -34,8 +34,9 @@ namespace CompaniesFleet
                         //
                         c.SingleApiVersion("v1", "CompaniesFleet");
 
-                        c.IncludeXmlComments(string.Format(@"{0}\bin\CompaniesFleet.XML",
-                           System.AppDomain.CurrentDomain.BaseDirectory));
+                        //c.IncludeXmlComments(string.Format(@"{0}\bin\CompaniesFleet.XML",
+                        //   System.AppDomain.CurrentDomain.BaseDirectory));
+
                         // If you want the output Swagger docs to be indented properly, enable the "PrettyPrint" option.
                         //
                         //c.PrettyPrint();
@@ -63,7 +64,7 @@ namespace CompaniesFleet
                         //c.BasicAuth("basic")
                         //    .Description("Basic HTTP Authentication");
                         //
-						// NOTE: You must also configure 'EnableApiKeySupport' below in the SwaggerUI section
+                        // NOTE: You must also configure 'EnableApiKeySupport' below in the SwaggerUI section
                         //c.ApiKey("apiKey")
                         //    .Description("API Key Authentication")
                         //    .Name("apiKey")
@@ -72,8 +73,8 @@ namespace CompaniesFleet
                         //c.OAuth2("oauth2")
                         //    .Description("OAuth2 Implicit Grant")
                         //    .Flow("implicit")
-                        //    .AuthorizationUrl("http://petstore.swagger.wordnik.com/api/oauth/dialog")
-                        //    //.TokenUrl("https://tempuri.org/token")
+                        //    //.AuthorizationUrl("http://petstore.swagger.wordnik.com/api/oauth/dialog")
+                        //    .TokenUrl("/token")
                         //    .Scopes(scopes =>
                         //    {
                         //        scopes.Add("read", "Read access to protected resources");

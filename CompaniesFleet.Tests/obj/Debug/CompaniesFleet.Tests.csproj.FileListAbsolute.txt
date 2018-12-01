@@ -78,7 +78,6 @@ C:\Users\user\Documents\VsProj\MVC\companyfleet\CompanyFleet\CompaniesFleet.Test
 C:\Users\user\Documents\VsProj\MVC\companyfleet\CompanyFleet\CompaniesFleet.Tests\bin\Debug\System.Web.WebPages.dll
 C:\Users\user\Documents\VsProj\MVC\companyfleet\CompanyFleet\CompaniesFleet.Tests\bin\Debug\System.Web.WebPages.Deployment.dll
 C:\Users\user\Documents\VsProj\MVC\companyfleet\CompanyFleet\CompaniesFleet.Tests\bin\Debug\CompaniesFleet.pdb
-C:\Users\user\Documents\VsProj\MVC\companyfleet\CompanyFleet\CompaniesFleet.Tests\bin\Debug\CompaniesFleet.xml
 C:\Users\user\Documents\VsProj\MVC\companyfleet\CompanyFleet\CompaniesFleet.Tests\bin\Debug\CompaniesFleet.dll.config
 C:\Users\user\Documents\VsProj\MVC\companyfleet\CompanyFleet\CompaniesFleet.Tests\bin\Debug\System.Web.Http.xml
 C:\Users\user\Documents\VsProj\MVC\companyfleet\CompanyFleet\CompaniesFleet.Tests\bin\Debug\Microsoft.Owin.xml

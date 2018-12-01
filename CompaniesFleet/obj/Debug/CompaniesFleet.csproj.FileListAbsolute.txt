@@ -69,7 +69,6 @@ C:\Users\bolum.victor\Documents\Vsproj\MVC\CompaniesFleet\CompaniesFleet\obj\Deb
 C:\Users\bolum.victor\Documents\Vsproj\MVC\CompaniesFleet\CompaniesFleet\obj\Debug\CompaniesFleet.csproj.GenerateResource.Cache
 C:\Users\bolum.victor\Documents\Vsproj\MVC\CompaniesFleet\CompaniesFleet\bin\CompaniesFleet.XML
 C:\Users\user\Documents\VsProj\MVC\companyfleet\CompanyFleet\CompaniesFleet\bin\CompaniesFleet.dll.config
-C:\Users\user\Documents\VsProj\MVC\companyfleet\CompanyFleet\CompaniesFleet\bin\CompaniesFleet.XML
 C:\Users\user\Documents\VsProj\MVC\companyfleet\CompanyFleet\CompaniesFleet\bin\CompaniesFleet.dll
 C:\Users\user\Documents\VsProj\MVC\companyfleet\CompanyFleet\CompaniesFleet\bin\CompaniesFleet.pdb
 C:\Users\user\Documents\VsProj\MVC\companyfleet\CompanyFleet\CompaniesFleet\bin\Antlr3.Runtime.dll
