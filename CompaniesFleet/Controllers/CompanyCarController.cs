@@ -10,6 +10,7 @@ using System.Web.Http;
 
 namespace CompaniesFleet.Controllers
 {
+    [Authorize]
     [RoutePrefix("api/companycar")]
     public class CompanyCarController : ApiController
     {
@@ -141,7 +142,7 @@ namespace CompaniesFleet.Controllers
                 return BadRequest();
             }
 
-            return Ok();
+            return Ok(model);
             
         }
     }
