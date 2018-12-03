@@ -12,11 +12,12 @@ Entity Framework
 2. Run  `Update-Database` in nuget package console
 
 
-#Authentication
+# Authentication
 Authentication requires that the existing user should supply their
-	.username
-	.password
-	.grant_type
+- username
+- password
+- grant_type
+
 to get a new token for making subsequent calls
 
 

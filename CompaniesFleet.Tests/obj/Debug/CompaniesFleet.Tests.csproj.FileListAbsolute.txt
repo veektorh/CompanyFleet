@@ -25,7 +25,6 @@ C:\Users\bolum.victor\Documents\Vsproj\MVC\CompaniesFleet\CompaniesFleet.Tests\b
 C:\Users\bolum.victor\Documents\Vsproj\MVC\CompaniesFleet\CompaniesFleet.Tests\bin\Debug\System.Web.WebPages.dll
 C:\Users\bolum.victor\Documents\Vsproj\MVC\CompaniesFleet\CompaniesFleet.Tests\bin\Debug\System.Web.WebPages.Deployment.dll
 C:\Users\bolum.victor\Documents\Vsproj\MVC\CompaniesFleet\CompaniesFleet.Tests\bin\Debug\CompaniesFleet.pdb
-C:\Users\bolum.victor\Documents\Vsproj\MVC\CompaniesFleet\CompaniesFleet.Tests\bin\Debug\CompaniesFleet.xml
 C:\Users\bolum.victor\Documents\Vsproj\MVC\CompaniesFleet\CompaniesFleet.Tests\bin\Debug\System.Web.Http.xml
 C:\Users\bolum.victor\Documents\Vsproj\MVC\CompaniesFleet\CompaniesFleet.Tests\bin\Debug\Microsoft.AspNet.Identity.Core.xml
 C:\Users\bolum.victor\Documents\Vsproj\MVC\CompaniesFleet\CompaniesFleet.Tests\bin\Debug\System.Web.Mvc.xml
@@ -105,3 +104,6 @@ C:\Users\user\Documents\VsProj\MVC\companyfleet\CompanyFleet\CompaniesFleet.Test
 C:\Users\user\Documents\VsProj\MVC\companyfleet\CompanyFleet\CompaniesFleet.Tests\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\user\Documents\VsProj\MVC\companyfleet\CompanyFleet\CompaniesFleet.Tests\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\user\Documents\VsProj\MVC\companyfleet\CompanyFleet\CompaniesFleet.Tests\bin\Debug\CompaniesFleet.Tests.dll.config
+C:\Users\bolum.victor\Documents\Vsproj\MVC\CompaniesFleet\CompaniesFleet.Tests\bin\Debug\CompaniesFleet.Tests.dll.config
+C:\Users\bolum.victor\Documents\Vsproj\MVC\CompaniesFleet\CompaniesFleet.Tests\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\bolum.victor\Documents\Vsproj\MVC\CompaniesFleet\CompaniesFleet.Tests\bin\Debug\EntityFramework.SqlServer.xml
