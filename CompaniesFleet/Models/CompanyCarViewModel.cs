@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace DevContactDirectory.Models
+namespace CompaniesFleet.Models
 {
     public class CompanyCarViewModel
     {

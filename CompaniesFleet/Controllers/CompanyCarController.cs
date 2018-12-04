@@ -1,11 +1,6 @@
-﻿using CompaniesFleet.Data.Repositories;
-using CompaniesFleet.Models;
-using DevContactDirectory.Models;
-using System;
-using System.Collections.Generic;
+﻿using CompaniesFleet.Models;
+using CompaniesFleet.Repositories;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace CompaniesFleet.Controllers
@@ -14,29 +9,22 @@ namespace CompaniesFleet.Controllers
     [RoutePrefix("api/companycar")]
     public class CompanyCarController : ApiController
     {
-        private CompanyCarRepository CompanyCarRepository;
+        private ICompanyCarRepository _companyCarRepository;
+        private ICategoryRepository _categoryRepository;
 
-        public CompanyCarController()
+        public CompanyCarController(ICompanyCarRepository companyrepo, ICategoryRepository categoryrepo)
         {
-            CompanyCarRepository = new CompanyCarRepository();
+            _companyCarRepository = companyrepo;
+            _categoryRepository = categoryrepo;
         }
 
-        // GET: api/CompanyCar
-        /// <summary>
-        /// Get all CompanyCars
-        /// </summary>
         public IHttpActionResult Get()
         {
-            var model =  CompanyCarRepository.GetAll().Select(a => new CompanyCarViewModel{ Name = a.Name , Category = a.Category.Name , Id = a.Id });
+            var model =  _companyCarRepository.GetAll();
 
             return Ok(model);
         }
-
         
-        /// <summary>
-        /// Gets All CompanyCars in a particular category
-        /// </summary>
-        /// <param name="id"></param>
         [Route("GetByCategory/{id}")]
         public IHttpActionResult GetByCategory(int id)
         {
@@ -45,16 +33,11 @@ namespace CompaniesFleet.Controllers
                 return BadRequest();
             }
 
-            var model = CompanyCarRepository.GetAll(a=>a.CategoryId == id).Select(a => new CompanyCarViewModel { Name = a.Name, Category = a.Category.Name, Id = a.Id });
+            var model = _companyCarRepository.GetAll(a=>a.CategoryId == id);
 
             return Ok(model);
         }
 
-        // GET: api/CompanyCar/5
-        /// <summary>
-        /// Gets a single CompanyCar
-        /// </summary>
-        /// <param name="id"></param>
         public IHttpActionResult Get(int id)
         {
 
@@ -62,19 +45,16 @@ namespace CompaniesFleet.Controllers
             {
                 return BadRequest();
             }
-            var model = CompanyCarRepository.GetById(id);
+            var model = _companyCarRepository.GetById(id);
             if (model == null)
             {
                 return NotFound();
             }
 
+
             return Ok(model);
         }
 
-        // POST: api/CompanyCar
-        /// <summary>
-        /// Create a new CompanyCar 
-        /// </summary>
         public IHttpActionResult Post(CompanyCarCreateViewModel model)
         {
             if (!ModelState.IsValid)
@@ -82,23 +62,28 @@ namespace CompaniesFleet.Controllers
                 return BadRequest();
             }
 
+            var category = _categoryRepository.GetById(model.Category);
+
+            if (category == null)
+            {
+                return BadRequest("Invalid Category");
+            }
+
             var CompanyCar = new CompanyCar();
             CompanyCar.Name = model.Name;
             CompanyCar.CategoryId = model.Category;
 
-            var result = CompanyCarRepository.Add(CompanyCar);
+            var result = _companyCarRepository.Add(CompanyCar);
 
-            if (!result.Status)
+            if (result == null)
             {
-                return BadRequest(result.Message);
+                return BadRequest();
             }
 
-            return Ok(result.CompanyCar);
+
+            return Ok(result);
         }
 
-        /// <summary>
-        /// Update an existing CompanyCar 
-        /// </summary>
         public IHttpActionResult Put(CompanyCarUpdateViewModel model)
         {
             if (!ModelState.IsValid)
@@ -106,7 +91,7 @@ namespace CompaniesFleet.Controllers
                 return BadRequest();
             }
 
-            var CompanyCar = CompanyCarRepository.GetAll(a=>a.Id==model.Id).FirstOrDefault();
+            var CompanyCar = _companyCarRepository.GetAll(a=>a.Id==model.Id).FirstOrDefault();
 
             if (CompanyCar == null)
             {
@@ -116,27 +101,23 @@ namespace CompaniesFleet.Controllers
             CompanyCar.Name = model.Name;
             CompanyCar.CategoryId = model.Category;
 
-            var result = CompanyCarRepository.Update(CompanyCar);
+            var result = _companyCarRepository.Update(CompanyCar);
             return Ok(result);
         }
 
-        // DELETE: api/CompanyCar/5
-        /// <summary>
-        /// Remove an existing CompanyCar 
-        /// </summary>
         public IHttpActionResult Delete(int id)
         {
             if (id < 0)
             {
                 return BadRequest();
             }
-            var model = CompanyCarRepository.GetById(id);
+            var model = _companyCarRepository.GetById(id);
             if (model == null)
             {
                 return NotFound();
             }
 
-            var result = CompanyCarRepository.Remove(id);
+            var result = _companyCarRepository.Remove(id);
             if (!result)
             {
                 return BadRequest();

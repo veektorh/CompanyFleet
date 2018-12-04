@@ -2,30 +2,61 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CompaniesFleet.Controllers;
 using System.Web.Http.Results;
-using DevContactDirectory.Models;
+using CompaniesFleet.Models;
 using System.Collections.Generic;
 using System.Linq;
+using CompaniesFleet.Repositories;
+using Moq;
 
 namespace CompaniesFleet.Tests
 {
     [TestClass]
     public class CompanyCarTest
     {
-        //get all company car test
-        //get car by id test
-        //test exceptions
-        //get car by wrong id test
-        //get car by invalid id test
-        //update car test
-        //delete car test
-        //
+        private ICompanyCarRepository _companyCarRepository;
+        private ICategoryRepository _categoryRepository;
+        private CompanyCarController _companyCarController;
+
+        public CompanyCarTest()
+        {
+            _companyCarRepository = new CompanyCarRepository();
+            _categoryRepository = new CategoryRepository();
+
+            _companyCarController = new CompanyCarController(_companyCarRepository, _categoryRepository);
+        }
+
+
+        public void SetupMockRepo()
+        {
+            var compamyCarRepoMock = new Mock<CompanyCarRepository>();
+
+            var carCategory = new Category() { Id = 1, Name = "Car" };
+            var truckCategory = new Category() { Id = 2, Name = "Truck" };
+            var suvCategory = new Category() { Id = 3, Name = "Suv" };
+
+            var categoryList = new List<Category>()
+            {
+                carCategory,truckCategory,suvCategory
+            };
+
+            var companyCarList = new List<CompanyCar>()
+            { 
+                new CompanyCar(){  Id = 1, Name = "Toyota" , Category= carCategory, CategoryId = 1 },
+                new CompanyCar(){  Id = 1, Name = "Lexus" , Category= suvCategory, CategoryId = 3 },
+                new CompanyCar(){  Id = 1, Name = "Hilux" , Category= truckCategory, CategoryId = 2 },
+
+            };
+            compamyCarRepoMock.Setup(a => a.GetAll()).Returns(companyCarList);
+            compamyCarRepoMock.Setup(a => a.GetById(It.IsAny<int>())).Returns((int c) => companyCarList.FirstOrDefault(a => a.Id == c));
+            compamyCarRepoMock.Setup(a => a.Add(It.IsAny<CompanyCar>())).Returns((CompanyCar c) => c);
+        }
+
 
         [TestMethod]
         public void GetAllCompanyTest()
         {
-            CompanyCarController companyCar = new CompanyCarController();
 
-            var result = companyCar.Get() as OkNegotiatedContentResult<IEnumerable<CompanyCarViewModel>>;
+            var result = _companyCarController.Get() as OkNegotiatedContentResult<List<CompanyCar>>;
 
             Assert.IsNotNull(result.Content);
         }
@@ -33,21 +64,19 @@ namespace CompaniesFleet.Tests
         [TestMethod]
         public void GetCarByIdTest()
         {
-            CompanyCarController companyCar = new CompanyCarController();
 
-            var result = companyCar.Get(1) as OkNegotiatedContentResult<CompanyCarViewModel>;
+            var result = _companyCarController.Get(3) as OkNegotiatedContentResult<CompanyCar>;
 
 
             Assert.IsNotNull(result.Content);
-            Assert.AreEqual(result.Content.Id, 1);
+            Assert.AreEqual(result.Content.Id, 3);
         }
 
         [TestMethod]
         public void PostCompanyCarTest()
         {
-            CompanyCarController companyCar = new CompanyCarController();
             var model = new CompanyCarCreateViewModel() { Name = "Lexus", Category = 1 };
-            var result = companyCar.Post(model) as OkNegotiatedContentResult<CompanyCarViewModel>;
+            var result = _companyCarController.Post(model) as OkNegotiatedContentResult<CompanyCar>;
 
             Assert.IsNotNull(result.Content);
             Assert.AreEqual(result.Content.Name, "Lexus");
@@ -56,10 +85,8 @@ namespace CompaniesFleet.Tests
         [TestMethod]
         public void PutCompanyCarTest()
         {
-            CompanyCarController companyCar = new CompanyCarController();
-            
-            var model = new CompanyCarUpdateViewModel() {Id=1, Name = "Hyundai", Category = 2 };
-            var result = companyCar.Put(model) as OkNegotiatedContentResult<CompanyCarViewModel>;
+            var model = new CompanyCarUpdateViewModel() { Id = 3, Name = "Hyundai", Category = 2 };
+            var result = _companyCarController.Put(model) as OkNegotiatedContentResult<CompanyCar>;
 
             Assert.IsNotNull(result.Content);
             Assert.AreEqual(result.Content.Name, "Hyundai");
@@ -68,26 +95,27 @@ namespace CompaniesFleet.Tests
         [TestMethod]
         public void DeleteCompanyCarTest()
         {
-            CompanyCarController companyCar = new CompanyCarController();
-
-            var companyCarList = companyCar.Get() as OkNegotiatedContentResult<IEnumerable<CompanyCarViewModel>>;
+            var companyCarList = _companyCarController.Get() as OkNegotiatedContentResult<List<CompanyCar>>;
             var list = companyCarList.Content.ToList();
             if (list.Count > 0)
             {
                 var rnd = new Random().Next(1, list.Count);
                 var randomCompanyCar = list[rnd];
-                var result = companyCar.Delete(randomCompanyCar.Id) as OkNegotiatedContentResult<CompanyCarViewModel>;
 
-                Assert.IsNotNull(result.Content);
+                if (randomCompanyCar.Id != 3)
+                {
+                    var result = _companyCarController.Delete(randomCompanyCar.Id) as OkNegotiatedContentResult<CompanyCar>;
+
+                    Assert.IsNotNull(result.Content);
+                }
+
             }
         }
 
         [TestMethod]
         public void NotFoundTest()
         {
-            CompanyCarController companyCar = new CompanyCarController();
-
-            var result = companyCar.Get(100);
+            var result = _companyCarController.Get(100);
 
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
         }
@@ -95,10 +123,9 @@ namespace CompaniesFleet.Tests
         [TestMethod]
         public void BadRequestTest()
         {
-            CompanyCarController companyCar = new CompanyCarController();
             var model = new CompanyCarCreateViewModel() { Name = "victor" };
 
-            var result = companyCar.Post(model);
+            var result = _companyCarController.Post(model);
 
             Assert.IsInstanceOfType(result, typeof(BadRequestErrorMessageResult));
         }
