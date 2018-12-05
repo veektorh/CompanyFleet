@@ -95,21 +95,19 @@ namespace CompaniesFleet.Tests
         [TestMethod]
         public void DeleteCompanyCarTest()
         {
-            var companyCarList = _companyCarController.Get() as OkNegotiatedContentResult<List<CompanyCar>>;
-            var list = companyCarList.Content.ToList();
-            if (list.Count > 0)
-            {
-                var rnd = new Random().Next(1, list.Count);
-                var randomCompanyCar = list[rnd];
+            var carCategory = new Category() { Id = 1, Name = "Car" };
+            var toyota = new CompanyCar(){  Id = 1, Name = "Toyota" , Category= carCategory, CategoryId = 1 };
 
-                if (randomCompanyCar.Id != 3)
-                {
-                    var result = _companyCarController.Delete(randomCompanyCar.Id) as OkNegotiatedContentResult<CompanyCar>;
+            var mockRepo = new Mock<ICompanyCarRepository>();
+            mockRepo.Setup(a => a.GetById(It.IsAny<int>())).Returns(toyota);
+            mockRepo.Setup(a => a.Remove(It.IsAny<int>())).Returns(true);
+            var companyCarController = new CompanyCarController(mockRepo.Object, _categoryRepository);
 
-                    Assert.IsNotNull(result.Content);
-                }
+            var result = companyCarController.Delete(1) as OkNegotiatedContentResult<CompanyCar>;
 
-            }
+            Assert.IsNotNull(result.Content);
+            Assert.AreEqual(1, result.Content.Id);
+
         }
 
         [TestMethod]

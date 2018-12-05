@@ -263,12 +263,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\HelperClasses.cs" />
-    <Compile Include="Infrastructure\Concrete\Context.cs" />
     <Compile Include="Infrastructure\Concrete\Repository.cs" />
-    <Compile Include="Infrastructure\Concrete\UnitOfWork.cs" />
-    <Compile Include="Infrastructure\Contract\IContext.cs" />
     <Compile Include="Infrastructure\Contract\IRepository.cs" />
-    <Compile Include="Infrastructure\Contract\IUnitOfWork.cs" />
     <Compile Include="Migrations\201811290945406_init.cs" />
     <Compile Include="Migrations\201811290945406_init.Designer.cs">
       <DependentUpon>201811290945406_init.cs</DependentUpon>

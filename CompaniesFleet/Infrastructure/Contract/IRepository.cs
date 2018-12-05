@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Contract
 {
-    public enum SortOrder { Ascending = 1, Descending }
     internal interface IRepository<T> where T : class 
     {
-        DbContext RepositoryContext();
         T Add(T entity);
         IEnumerable<T> AddRange(List<T> entities);
         T Remove(T entity);

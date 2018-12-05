@@ -6,6 +6,7 @@ using Infrastructure.Contract;
 using NLog;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -15,14 +16,14 @@ namespace CompaniesFleet.Repositories
     {
         private readonly IRepository<CompanyCar> repository;
         private readonly IRepository<Category> _categoryRepository;
-        private readonly IUnitOfWork uoWork;
+        private readonly DbContext Db;
         Logger logger = LogManager.GetLogger("ErrorLogger");
 
         public CompanyCarRepository()
         {
-            uoWork = new UnitOfWork();
-            repository = new Repository<CompanyCar>(uoWork);
-            _categoryRepository = new Repository<Category>(uoWork);
+            Db = new ApplicationDbContext();
+            repository = new Repository<CompanyCar>(Db);
+            _categoryRepository = new Repository<Category>(Db);
         }
 
         public CompanyCar Add(CompanyCar entity)

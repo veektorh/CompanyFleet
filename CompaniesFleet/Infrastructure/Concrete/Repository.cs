@@ -13,21 +13,14 @@ namespace Infrastructure.Concrete
 
     internal class Repository<T> : IRepository<T> where T : class
     {
-        private readonly IUnitOfWork _context;
+        private readonly DbContext _context;
         private readonly DbSet<T> _dbSet;
-        private readonly DbContext _dbContext;
 
-        public Repository(IUnitOfWork unitOfWork)
+        public Repository(DbContext Db)
         {
-            if (unitOfWork == null) throw new ArgumentNullException("unitOfWork");
-            _context = unitOfWork;
-            _dbSet = unitOfWork.Context.AppDbContext.Set<T>();
-            _dbContext = unitOfWork.Context.AppDbContext;
-        }
-
-        public DbContext RepositoryContext()
-        {
-            return _dbContext;
+            if (Db == null) throw new ArgumentNullException("Db");
+            _context = Db;
+            _dbSet = Db.Set<T>();
         }
 
         public T Add(T entity)
@@ -62,7 +55,7 @@ namespace Infrastructure.Concrete
         public T Update(T entity)
         {
             var updated = _dbSet.Attach(entity);
-            _context.Context.AppDbContext.Entry(entity).State = EntityState.Modified;
+            _context.Entry(entity).State = EntityState.Modified;
             _context.SaveChanges();
             return updated;
         }
@@ -73,7 +66,7 @@ namespace Infrastructure.Concrete
             foreach (var item in entities)
             {
                 var updated = _dbSet.Attach(item);
-                _context.Context.AppDbContext.Entry(item).State = EntityState.Modified;
+                _context.Entry(item).State = EntityState.Modified;
                 retVals.Add(updated);
             }
             _context.SaveChanges();

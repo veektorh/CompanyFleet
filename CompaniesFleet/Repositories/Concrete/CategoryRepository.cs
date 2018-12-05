@@ -4,6 +4,7 @@ using Infrastructure.Contract;
 using NLog;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -12,13 +13,13 @@ namespace CompaniesFleet.Repositories
     public class CategoryRepository : CompaniesFleet.Repositories.ICategoryRepository
     {
         private readonly IRepository<Category> repository;
-        private readonly IUnitOfWork uoWork;
+        private readonly DbContext Db;
         Logger logger = LogManager.GetLogger("ErrorLogger");
 
         public CategoryRepository()
         {
-            uoWork = new UnitOfWork();
-            repository = new Repository<Category>(uoWork);
+            Db = new ApplicationDbContext();
+            repository = new Repository<Category>(Db);
         }
 
         public bool Add(Category entity)
